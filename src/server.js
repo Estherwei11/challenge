@@ -1,6 +1,10 @@
 'use strict';
 const express = require('express');
 const app = express();
+
+app.use(express.static('public'));
+app.use(express.json());
+
 const registerRoutes = require('./routes');
 
 // server config
@@ -11,17 +15,15 @@ registerRoutes(app);
 
 // create server start method
 const start = () => {
-    return new Promise((resolve, reject) => {
-        // start the server
-        app.listen(port, () => {
-            console.log(`Connected to Port ${port}`);
-            resolve()
-        });
-    }).catch((error) => {
-        console.log(`failed to start server => ${error.message}`)
+  return new Promise((resolve, reject) => {
+    // start the server
+    app.listen(port, () => {
+      console.log(`Connected to Port ${port}`);
+      resolve();
     });
-}
+  }).catch((error) => {
+    console.log(`failed to start server => ${error.message}`);
+  });
+};
 
 module.exports = start;
-
-
